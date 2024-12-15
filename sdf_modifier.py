@@ -2,19 +2,21 @@ import os
 import shutil
 import xml.etree.ElementTree as ET
 
-model = "jumping_spider_controls"
-submodel = "jumping_spider"
-component = "plugin"
-name = "SuctionPlugin"
-new_name = "SuctionPlugin"
-action = "modify"
-prop_dict = {
-    "suction_force":"100",
-}
-# prop_dict = {
-#     "suction_force":"100",
-#     "cylider":{"radius":"6969"},
-# }
+sdf_mod_list = [
+    {
+        "model" : "jumping_spider_controls",
+        "submodel" : "jumping_spider",
+        "component_dicts_list" : [{
+            "component" : "plugin",
+            "name" : "SuctionPlugin",
+            "new_name" : "SuctionPlugin",
+            "action" : "modify",
+            "prop_dict" : {
+                "suction_force":"1",
+            }
+        }]
+    }
+]
 
 def dict_to_xml(tag, d):
     """
@@ -47,21 +49,32 @@ def generate_world_file(original_world_file_dir, original_world_file_name, new_w
         root.set("xmlns:experimental", "experimental")
 
     # Locate the specific <include> element by its <uri> child
-    for include in world.findall("include"):
-        uri = include.find("uri")
-        if uri is not None and uri.text == f"model://{model}":
-            # Create the new <experimental:params> element
-            new_param = ET.Element("experimental:params")
-            new_prop = ET.SubElement(new_param, f"{component}", {
-                "element_id": f"{submodel}::{name}",
-                "name": f"{new_name}",
-                "action": f"{action}"
-            })
-            new_prop = dict_to_xml(new_prop, prop_dict)
+    
+    for mod in sdf_mod_list:  
+        model = mod["model"]
+        submodel = mod["submodel"]
+        for include in world.findall("include"):
+            uri = include.find("uri")
+            if uri is not None and uri.text == f"model://{model}":
+                # Create the new <experimental:params> element
+                new_param = ET.Element("experimental:params")
+                for component_dict in mod["component_dicts_list"]:
+                    component = component_dict["component"]
+                    name = component_dict["name"]
+                    new_name = component_dict["new_name"]
+                    action = component_dict["action"]
+                    prop_dict = component_dict["prop_dict"]
+                    uri = include.find("uri")
+                    new_prop = ET.SubElement(new_param, f"{component}", {
+                        "element_id": f"{submodel}::{name}",
+                        "name": f"{new_name}",
+                        "action": f"{action}"
+                    })
+                    new_prop = dict_to_xml(new_prop, prop_dict)
 
-            ET.indent(new_param, '  ')
-            include.append(new_param)
-            break 
+                    ET.indent(new_param, '  ')
+                    include.append(new_param)
+                break 
 
     tree.write(new_world_file_path, xml_declaration=True, encoding="UTF-8")
 
