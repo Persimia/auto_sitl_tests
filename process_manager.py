@@ -34,7 +34,6 @@ def start_processes(commands):
     for command in commands:
         process = subprocess.Popen(command, shell=True)
         processes.append(process)
+
+    return processes
     
-    # Wait for all processes to finish (if needed, or let cleanup take care of termination)
-    for process in processes:
-        process.wait()
