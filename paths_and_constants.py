@@ -1,0 +1,13 @@
+original_world_file_dir = "/home/skemp32/ros2_ws/src/sitl_models/worlds/" # location of original sdf world file
+original_world_file_name = "js_turbine.sdf" # name of original sdf world file
+world_file_path = f"/home/skemp32/ros2_ws/src/auto_sitl_tests/Temp/worlds/world.sdf" # location and name of modified world file path
+sitl_data_dir = "/home/skemp32/ros2_ws/src/auto_sitl_tests/Temp/sitl-data" # location for data to be temporarily stored
+gazebo_data_dir = "/home/skemp32/ros2_ws/src/auto_sitl_tests/Temp/gz-data" # location to temporarily store gazebo data
+original_param_file_path = "/home/skemp32/ros2_ws/src/sitl_models/config/gazebo-doe.parm" # location of default params
+param_file_path = "/home/skemp32/ros2_ws/src/sitl_models/config/gazebo-doe_temp.parm" # location of params that are actually used and changed
+microros_agent_path = "/home/skemp32/ros2_ws/install/micro_ros_agent/lib/micro_ros_agent/micro_ros_agent" # location of the microros agent
+ros_bridge_config_path = "/home/skemp32/ros2_ws/src/sitl_models/config/doe_lidar_bridge.yaml" # location of the ros_gazebo_bridge
+model_dir = "/home/skemp32/ros2_ws/src/sitl_models/models" # location of the original model (unmodified)
+test_dir = "/home/skemp32/fault-testing-results/" # parent folder of all the results
+main_object_name = "jumping_spider_controls" # name of the vtop level vehicle in sdf
+temp_save_dir = "/home/skemp32/ros2_ws/src/auto_sitl_tests/Temp" # entire temp save directory
