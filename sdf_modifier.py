@@ -2,21 +2,21 @@ import os
 import shutil
 import xml.etree.ElementTree as ET
 
-sdf_mod_list = [
-    # {
-    #     "model" : "jumping_spider_controls",
-    #     "submodel" : "jumping_spider",
-    #     "component_dicts_list" : [{
-    #         "component" : "plugin",
-    #         "name" : "SuctionPlugin",
-    #         "new_name" : "SuctionPlugin",
-    #         "action" : "modify",
-    #         "prop_dict" : {
-    #             "suction_force":"1",
-    #         }
-    #     }]
-    # }
-]
+# sdf_mod_list = [
+#     # {
+#     #     "model" : "jumping_spider_controls",
+#     #     "submodel" : "jumping_spider",
+#     #     "component_dicts_list" : [{
+#     #         "component" : "plugin",
+#     #         "name" : "SuctionPlugin",
+#     #         "new_name" : "SuctionPlugin",
+#     #         "action" : "modify",
+#     #         "prop_dict" : {
+#     #             "suction_force":"1",
+#     #         }
+#     #     }]
+#     # }
+# ]
 
 def dict_to_xml(tag, d):
     """
@@ -36,7 +36,7 @@ def dict_to_xml(tag, d):
         return element
     return ET.Element(tag, text=str(d))
 
-def generate_world_file(original_world_file_dir, original_world_file_name, new_world_file_path):
+def generate_world_file(original_world_file_dir, original_world_file_name, new_world_file_path, sdf_mod_list: dict ={}):
     src = os.path.join(original_world_file_dir, original_world_file_name)
     dst = new_world_file_path
     shutil.copyfile(src, dst)

@@ -2,6 +2,7 @@ import gz.transport13 as transport  # Import the Gazebo Transport library
 from gz.msgs10.clock_pb2 import Clock
 from gz.msgs10.stringmsg_pb2 import StringMsg
 from gz.msgs10.cameratrack_pb2 import CameraTrack
+from gz.msgs10.wind_pb2 import Wind
 
 import time, signal
 
@@ -12,6 +13,8 @@ node = transport.Node()
 clock_topic = "/clock"
 fault_topic = "/failure_topic"
 track_topic = "/gui/track"
+wind_topic = "/world/js_turbine/wind"
+
 
 sim_time_s = 0
 msg_recieved = False
@@ -36,6 +39,11 @@ if not fault_publisher:
 track_publisher = node.advertise(track_topic, CameraTrack)
 if not track_publisher:
     print(f"Failed to advertise to topic: {track_topic}")
+    signal.raise_signal(signal.SIGINT)
+
+wind_publisher = node.advertise(wind_topic, Wind)
+if not wind_publisher:
+    print(f"Failed to advertise to topic: {wind_topic}")
     signal.raise_signal(signal.SIGINT)
 
 def get_time(timeout:float = 5):
@@ -63,5 +71,17 @@ def track_object(object_name):
     msg.track_mode= 2
 
     track_publisher.publish(msg)
+
+def linear_wind(east, north, up):
+    global wind_publisher
+    msg = Wind()
+
+    msg.enable_wind = True
+    msg.linear_velocity.x = east # east
+    msg.linear_velocity.y = north # north
+    msg.linear_velocity.z = up
+
+    wind_publisher.publish(msg)
+
 
 

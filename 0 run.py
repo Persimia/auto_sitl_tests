@@ -12,16 +12,14 @@ def soft_exit(signal_received=None, frame=None):
     sh.save_run_data()
     exit(1)
 
-# signal.signal(signal.SIGINT, soft_exit)
-
 try:
     # run sequence
-    # fs.s0_0_0()
     fs.quickstart()
+    # fs.s0_0_0()
+    # fs.s0_0_1()
+    # fs.s3_3_2()
     # fs.testing()
     # time.sleep(30)
-    
-
 
 # gz sim -r -v 4 --playback "/home/skemp32/ros2_ws/src/auto_sitl_tests/Temp/gz-data"
 
