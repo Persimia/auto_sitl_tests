@@ -9,7 +9,36 @@ def quickstart():
     sh.sim_speedup(10)
     sh.track_object(main_object_name)
     sh.wait_for_start_sequence()
-    sh.wait_for_takeoff(35)
+    sh.wait_for_takeoff(29)
+    sh.sim_speedup(1)
+    sh.spin()
+
+def suction_detach_delay():
+    test_name = "1 Suction detach delay"
+    sdf_mod_list = [
+        {
+            "model" : "jumping_spider_controls",
+            "submodel" : "jumping_spider",
+            "component_dicts_list" : [{
+                "component" : "plugin",
+                "name" : "SuctionPlugin",
+                "new_name" : "SuctionPlugin",
+                "action" : "modify",
+                "prop_dict" : {
+                    "suction_delay1":"50",
+                    "suction_delay2":"50",
+                    "detach_delay1":"50",
+                    "detach_delay2":"50",
+                }
+            }]
+        }
+    ]
+    sh.startup(test_name, show_gazebo=True, sdf_mod_list=sdf_mod_list)
+    sh.init_mav()
+    sh.sim_speedup(10)
+    sh.track_object(main_object_name)
+    sh.wait_for_start_sequence()
+    sh.wait_for_takeoff(29)
     sh.sim_speedup(1)
     sh.spin()
 

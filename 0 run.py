@@ -1,7 +1,7 @@
 import fault_scenarios as fs
 import process_manager as pm
 import sequence_helper as sh
-import sys  , time, signal
+import sys
 
 def soft_exit(signal_received=None, frame=None):
     print("=========== ERROR HERE ============")
@@ -14,7 +14,8 @@ def soft_exit(signal_received=None, frame=None):
 
 try:
     # run sequence
-    fs.quickstart()
+    # fs.quickstart()
+    fs.suction_detach_delay()
     # fs.s0_0_0()
     # fs.s0_0_1()
     # fs.s3_3_2()
