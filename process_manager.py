@@ -11,14 +11,14 @@ def make_commands(sitl_data_dir, param_file_path, microros_agent_path, ros_bridg
             f"GZ_SIM_RESOURCE_PATH={model_dir}:$GZ_SIM_RESOURCE_PATH; gz sim -v4 -r {world_file_path} --record-path {gazebo_data_dir} --log-overwrite",
             f"ros2 run ros_gz_bridge parameter_bridge --ros-args -p config_file:={ros_bridge_config_path}",
             f"{microros_agent_path} udp4 --middleware dds --verbose 4 --port 2019 --ros-args -r __node:=micro_ros_agent -r __ns:=/",
-            f"cd {sitl_data_dir}; sim_vehicle.py -v ArduCopter --model=json --add-param-file={param_file_path} --speedup=1 --slave=0 --sim-address=127.0.0.1 --instance=0 --enable-dds -A --synthetic-clock -A --serial5=sim:sf45b"
+            f"cd {sitl_data_dir}; sim_vehicle.py -v ArduCopter --model=json -M --add-param-file={param_file_path} --speedup=1 --slave=0 --sim-address=127.0.0.1 --instance=0 --enable-dds -A --synthetic-clock -A --serial5=sim:sf45b"
         ]
     else:
         return [
             f"GZ_SIM_RESOURCE_PATH={model_dir}:$GZ_SIM_RESOURCE_PATH; gz sim -v4 -s -r {world_file_path} --record-path {gazebo_data_dir} --log-overwrite",
             f"ros2 run ros_gz_bridge parameter_bridge --ros-args -p config_file:={ros_bridge_config_path}",
             f"{microros_agent_path} udp4 --middleware dds --verbose 4 --port 2019 --ros-args -r __node:=micro_ros_agent -r __ns:=/",
-            f"cd {sitl_data_dir}; sim_vehicle.py -v ArduCopter --model=json --add-param-file={param_file_path} --speedup=1 --slave=0 --sim-address=127.0.0.1 --instance=0 --enable-dds -A --synthetic-clock -A --serial5=sim:sf45b"
+            f"cd {sitl_data_dir}; sim_vehicle.py -v ArduCopter --model=json -M --add-param-file={param_file_path} --speedup=1 --slave=0 --sim-address=127.0.0.1 --instance=0 --enable-dds -A --synthetic-clock -A --serial5=sim:sf45b"
         ]
 
 
