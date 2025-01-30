@@ -2,6 +2,16 @@ import sequence_helper as sh
 from paths_and_constants import main_object_name
 
 #s for scenario in function name because function names can't just be numbers
+def quickstart_no_takeoff():
+    test_name = "0 Quickstart No Takeoff"
+    sh.startup(test_name, show_gazebo=True)
+    sh.init_mav()
+    sh.sim_speedup(10)
+    sh.track_object(main_object_name)
+    sh.wait_for_start_sequence()
+    sh.sim_speedup(1)
+    sh.spin()
+
 def quickstart():
     test_name = "0 Quickstart"
     sh.startup(test_name, show_gazebo=True)
@@ -12,6 +22,7 @@ def quickstart():
     sh.wait_for_takeoff(29)
     sh.sim_speedup(1)
     sh.spin()
+
 
 def suction_detach_delay():
     test_name = "1 Suction detach delay"
