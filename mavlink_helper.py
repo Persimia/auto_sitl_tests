@@ -85,6 +85,8 @@ def enter_mode(mode_num: int):
         0, # param6
         0) # param7
 
+
+
 def arm_throttle():
     global master
     master.mav.command_long_send(

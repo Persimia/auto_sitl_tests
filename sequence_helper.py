@@ -34,6 +34,7 @@ def wait_for_takeoff(altitude: float = 35, alt_tol = .1, timeout: float = 30):
         cur_alt = mh.get_local_position_neu()['z']
         # print(cur_alt)
         if abs(cur_alt - altitude) < alt_tol:
+            mh.send_rc_override(3,1500)
             return
     print("Altitude message timeout failure!")
 

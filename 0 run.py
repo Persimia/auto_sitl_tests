@@ -14,8 +14,8 @@ def soft_exit(signal_received=None, frame=None):
 
 try:
     # run sequence
-    # fs.quickstart()
-    fs.quickstart_no_takeoff()
+    fs.quickstart()
+    # fs.quickstart_no_takeoff()
     # fs.suction_detach_delay()
     # fs.s0_0_0()
     # fs.s0_0_1()
